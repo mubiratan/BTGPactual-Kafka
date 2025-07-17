@@ -22,8 +22,8 @@ public class OrderCreatedListener {
     }
 
     @KafkaListener(topics = ORDER_CREATED_TOPIC)
-    public void listen(OrderCreatedEvent event) {  // Remover Message<>
-        logger.info("Event consumed: {}", event);
-        orderService.save(event);
+    public void listen(Message<OrderCreatedEvent> message) {
+        logger.info("Message consumed: {}", message.getPayload());
+        orderService.save(message.getPayload());
     }
 }
