@@ -9,7 +9,7 @@ Processar pedidos e gerar relatório.
    - Estime horas
 2. Crie uma aplicação, na tecnologia de sua preferência (JAVA, DOTNET, NODEJS)
 3. Modele e implemente uma base de dados (PostgreSQL, MySQL, MongoDB).
-4. Crie um micro serviço que consuma dados de uma fila RabbitMQ e grave os dados para conseguir listar as informações:
+4. Crie um micro serviço que consuma dados de um tópico Kafka e grave os dados para conseguir listar as informações:
    - Valor total do pedido
    - Quantidade de Pedidos por Cliente
    - Lista de pedidos realizados por cliente
