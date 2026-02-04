@@ -35,7 +35,7 @@ public class OrderService {
         entity.setItems(getOrderItems(event));
         entity.setTotal(getTotal(event));
 
-        orderRepository.save(entity);
+        orderRepository.insert(entity);
     }
 
     private BigDecimal getTotal(OrderCreatedEvent event) {

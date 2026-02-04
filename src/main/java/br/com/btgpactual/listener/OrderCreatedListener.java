@@ -4,6 +4,7 @@ import br.com.btgpactual.listener.dto.OrderCreatedEvent;
 import br.com.btgpactual.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
@@ -19,6 +20,9 @@ public class OrderCreatedListener {
 
     private final OrderService orderService;
 
+    @Value("${dlq.key.test}")
+    private boolean dlqKeyTest;
+
     public OrderCreatedListener(OrderService orderService) {
         this.orderService = orderService;
     }
@@ -26,6 +30,11 @@ public class OrderCreatedListener {
     @KafkaListener(topics = ORDER_CREATED_TOPIC)
     public void listen(Message<OrderCreatedEvent> message, @Header(KafkaHeaders.RECEIVED_PARTITION) int partition) {
         logger.info("Message consumed from partition {}: {}", partition, message.getPayload());
+
+        if (dlqKeyTest) {
+            throw new RuntimeException("Simulando erro para testar DLQ");
+        }
+
         orderService.save(message.getPayload());
     }
 }
